@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Painel de Controle - openJarvis</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+</head>
+<body>
+<div class="container">
+    <h1>Painel de Controle - openJarvis</h1>
+
+    <div class="control-panel">
+        <button type="button" class="start-button" onclick="startProcess()">Iniciar Processo do Robô</button>
+    </div>
+
+    <h2>Log de Execução</h2>
+    <textarea id="log-output" class="log-area" readonly>Aguardando início do processo...</textarea>
+</div>
+
+<script>
+    const logOutput = document.getElementById('log-output');
+    let isFirstMessage = true;
+
+    // Função para iniciar a conexão de streaming de logs
+    function connectToLogStream() {
+        const eventSource = new EventSource('/log-stream');
+
+        eventSource.onmessage = function(event) {
+            if (isFirstMessage) {
+                logOutput.value = '';
+                isFirstMessage = false;
+            }
+            logOutput.value += event.data + '\n';
+            logOutput.scrollTop = logOutput.scrollHeight;
+        };
+
+        eventSource.onerror = function(err) {
+            console.error("EventSource failed:", err);
+            logOutput.value += 'ERRO: A conexão com o servidor de logs foi perdida.\n';
+            eventSource.close();
+        };
+    }
+
+    // Função chamada pelo botão "Iniciar Processo"
+    function startProcess() {
+        logOutput.value = 'Iniciando o processo... Por favor, aguarde.\n';
+        isFirstMessage = false;
+
+        // Usamos 'fetch' para enviar a requisição POST em segundo plano, sem recarregar a página.
+        fetch('/start-robot', {
+            method: 'POST'
+        }).then(response => {
+            if (!response.ok) {
+                logOutput.value += 'ERRO: Falha ao iniciar o processo no servidor.\n';
+            }
+        }).catch(error => {
+            console.error('Fetch error:', error);
+            logOutput.value += 'ERRO: Não foi possível se comunicar com o servidor.\n';
+        });
+    }
+
+    // Inicia a escuta dos logs assim que a página carrega
+    connectToLogStream();
+</script>
+</body>
+</html>

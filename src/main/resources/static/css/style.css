@@ -1,0 +1,7 @@
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background-color: #f8f9fa; color: #212529; margin: 0; padding: 2rem; }
+.container { max-width: 800px; margin: auto; background: #fff; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+h1 { color: #0056b3; text-align: center; }
+.control-panel { text-align: center; margin-bottom: 2rem; }
+.start-button { background-color: #28a745; color: white; border: none; padding: 15px 30px; font-size: 1.2rem; border-radius: 5px; cursor: pointer; }
+.start-button:hover { background-color: #218838; }
+.log-area { width: 100%; height: 400px; box-sizing: border-box; background-color: #343a40; color: #f8f9fa; font-family: "Courier New", monospace; font-size: 0.9rem; border: 1px solid #495057; border-radius: 5px; padding: 1rem; }

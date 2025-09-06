@@ -1,0 +1,25 @@
+# Versão da especificação do Docker Compose
+version: '3.8'
+
+services:
+  # Nome do nosso serviço
+  redis:
+    # Imagem oficial do Redis a partir do Docker Hub. A tag '-alpine' é uma versão leve.
+    image: 'redis:7-alpine'
+    
+    # Nome do container para fácil identificação
+    container_name: 'openjarvis-redis'
+    
+    # Mapeia a porta 6379 do container para a porta 6379 da sua máquina (host).
+    # É assim que sua aplicação Spring Boot (rodando no host) vai encontrar o Redis.
+    ports:
+      - "6379:6379"
+
+    # Volume para persistir os dados do Redis.
+    # Isso garante que a fila de trabalho não seja perdida se o container for reiniciado.
+    volumes:
+      - redis-data:/data
+
+# Declaração do volume nomeado para ser gerenciado pelo Docker
+volumes:
+  redis-data:
