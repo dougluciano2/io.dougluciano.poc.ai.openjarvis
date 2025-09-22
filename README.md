@@ -20,15 +20,15 @@ O OpenJarvis opera conectando três componentes principais: o back-end legado, o
 
 ```mermaid
 graph TD
-    A[Sistema Legado (PostgreSQL)] -- 1. Leitura via JDBC --> B{OpenJarvis - Robô IA};
-    B -- 2. Cache de dados --> C[Redis];
-    D[Front-end Simulador (Angular)] -- 3. Leitura da página via Selenium --> B;
-    B -- 4. Envia página + dados para IA --> E[OpenAI API via LangChain4j];
-    E -- 5. Retorna Associação Semântica --> B;
-    B -- 6. Selenium preenche o formulário --> D;
-    D -- 7. Aguarda confirmação humana --> F[Operador];
-    F -- 8. Confirma --> B;
-    B -- 9. Salva evidência em PDF --> G[Arquivo PDF];
+    A[Sistema Legado (PostgreSQL)] -- 1 Leitura via JDBC --> B{OpenJarvis - Robô IA};
+    B -- 2 Cache de dados --> C[Redis];
+    D[Front-end Simulador (Angular)] -- 3 Leitura da página via Selenium --> B;
+    B -- 4 Envia página + dados para IA --> E[OpenAI API via LangChain4j];
+    E -- 5 Retorna Associação Semântica --> B;
+    B -- 6 Selenium preenche o formulário --> D;
+    D -- 7 Aguarda confirmação humana --> F[Operador];
+    F -- 8 Confirma --> B;
+    B -- 9 Salva evidência em PDF --> G[Arquivo PDF];
 ```
 
 **Fluxo Detalhado:**
